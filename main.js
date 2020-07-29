@@ -1,4 +1,6 @@
 getAllProduct(makeProductList);
+window.addEventListener('scroll', infiniteScroll);
+
 
 function makeProductList(products) {
     const productArea = document.getElementsByClassName('products')[0];
@@ -9,7 +11,7 @@ function makeProductList(products) {
         const price = document.createElement('div');
         const description = document.createElement('div');
         title.innerText = '제품명 :' + product.title;
-        price.innerText = '제품 가격 : $' + product.price;
+        price.innerText = '제품 가격 : \\' + convertWon(product.price);
         description.innerText = product.description;
         card.appendChild(title);
         card.appendChild(price);
@@ -18,10 +20,24 @@ function makeProductList(products) {
     })
 }
 
-// https://fakestoreapi.com/docs
+// 가격을 회계형식으로 변경
+function convertWon(x) {
+    x = String(x).split('').reverse();
+    const result = [];
+    for (let i = 0; i < x.length; i++) {
+        result.push(x[i]);
+        if (i > 0 && (i + 1) % 3 ===0 && i !== x.length - 1) {
+            result.push(',');
+        }
+    }
+    return result.reverse().join('');
+}
+
+
+// rest api
 function getAllProduct(makeProductList) {
     const xhr = new XMLHttpRequest();
-    const URL = 'https://fakestoreapi.com/products';
+    const URL = 'http://localhost:3000/api/e-commerce/products';
     
     xhr.open("GET", URL);
     xhr.onreadystatechange = function() {
@@ -35,8 +51,30 @@ function getAllProduct(makeProductList) {
                 4 : request처리가 끝나고 response가 준비된 상태
             */
             makeProductList(JSON.parse(xhr.response))
-            // return JSON.parse(xhr.response);
         }
     }
     xhr.send();
+}
+
+// 무한 스크롤
+function infiniteScroll() {
+
+    function getScrollTop() {
+        return (window.pageYOffset !== undefined) 
+            ? window.pageYOffset 
+            : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    }
+
+    function getDocumentHegith() {
+        const body = document.body;
+        const html = document.documentElement;
+        
+        return Math.max(
+            body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight
+        );
+    }
+    if (getScrollTop() + 50 >= getDocumentHegith() - window.innerHeight) {
+        getAllProduct(makeProductList);
+    }
 }
