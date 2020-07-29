@@ -4,4 +4,4 @@
 Open with Live Server (vscode)
 
 ## API
-fakestoreapi 이용 (https://fakestoreapi.com/docs)
+자체 API 이용 (http://localhost:3000/api/e-commerce/products)
