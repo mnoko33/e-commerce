@@ -1,0 +1,24 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "Open with Live Server (vscode)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnoko33/e-commerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mnoko33/e-commerce/issues"
+  },
+  "homepage": "https://github.com/mnoko33/e-commerce#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "firebase": "^7.17.1"
+  }
+}
