@@ -1,3 +1,27 @@
+.header {
+    /* 영역 표시를 위한 임시 css */
+    border: 10px solid black;
+}
+
+.products {
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.recently-viewed {
+    /* 영역 표시를 위한 임시 css */
+    width: 180px;
+    border: 10px solid black; 
+    /* width: 200px; */
+}
+
+.container {
+    width: calc(100% - 200px);
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 .card {
     border: solid 1px black;
     padding: 10px;
