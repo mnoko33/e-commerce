@@ -3,7 +3,7 @@ getAllProduct(makeProductList);
 
 
 function makeProductList(products) {
-    const productArea = document.getElementsByClassName('products')[0];
+    const container = document.getElementsByClassName('container')[0];
     products.forEach(product => {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -19,7 +19,7 @@ function makeProductList(products) {
         card.appendChild(name);
         card.appendChild(price);
         card.appendChild(description);
-        productArea.appendChild(card);
+        container.appendChild(card);
     })
 }
 
