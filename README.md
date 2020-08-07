@@ -4,4 +4,4 @@
 Open with Live Server (vscode)
 
 ## API
-자체 API 이용 (http://localhost:3000/api/e-commerce/products)
+firebase firestore 사용
