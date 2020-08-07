@@ -1,30 +1,105 @@
-.header {
-    /* 영역 표시를 위한 임시 css */
-    border: 10px solid black;
+/* CSS 초기화 */
+body {
+    padding: 0;
+    margin: 0;
 }
 
+/* Header */
+.header {
+    width: 100vw;
+    padding: 15px 30px;
+    border-bottom: 5px solid #FFD608;
+    background-color: white;
+    position: fixed;
+}
+
+.header > .title {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 40px;
+    color: #FFD608;
+    margin-bottom: 10px;
+}
+
+.categoryChip {
+    display : inline-block;
+    padding: 6px;
+    margin-right: 10px;
+} 
+
+.categoryChip:hover {
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #FFD608;
+    color: white;
+    font-weight: bold;
+    border-radius: 9px;
+    border-bottom: 3px solid #FFD608;
+}
+
+/* Body */
+/* Body > Products */
 .products {
+    width: 100vw;
+    margin-top: 150px;
     display: inline-flex;
     flex-wrap: wrap;
 }
 
-.recently-viewed {
-    /* 영역 표시를 위한 임시 css */
-    width: 180px;
-    border: 10px solid black; 
-    /* width: 200px; */
-}
-
 .container {
-    width: calc(100% - 200px);
+    width: calc(100vw - 200px);
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
+.container > .loading {
+    width: calc(100vw - 200px);
+    height: calc(100vh - 150px);
+    margin: 350px auto 0;
+}
+
 .card {
-    border: solid 1px black;
     padding: 10px;
     margin: 10px;
-    max-width: 260px;
+    max-width: 300px;
+}
+
+.card > .productImg {
+    width: 300px;
+}
+
+.card > .productName {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.card > .productPrice {
+    margin-top: 15px;
+}
+
+.card > .productDesciption {
+    margin-top: 15px;
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+/* Body > Recently-viewd */
+.recently-viewed {
+    width: 200px;
+}
+
+.recently-viewd-box {
+    width: 150px;
+    height: 500px;
+    position: fixed;
+    top: 300px;
+}
+
+.recently-viewd-box > div:nth-child(1) {
+    font-weight: bold;
+    height: 30px;
+    border-bottom: 2px solid #FFD608;
 }
