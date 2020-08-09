@@ -1,5 +1,5 @@
-const a = makeLoadingAnimation();
-a.start();
+const loading = makeLoadingAnimation();
+loading.start();
 getProducts()
 // window.addEventListener('scroll', infiniteScroll);
 
@@ -19,30 +19,17 @@ for (let chip of categoryChips) {
 }
 
 function makeLoadingAnimation() {
-    const loadingArea = document.getElementsByClassName('loading')[0];
-    const loadingAnimation = document.createElement('div');
-    const container = document.createElement('div');
-    ['red', 'blue', 'yellow'].forEach((color, idx) => {
-        const elem = document.createElement('div');
-        elem.id = `circle${idx + 1}`;
-        elem.setAttribute("style", `background-color: ${color}; width: 50px; height: 50px; border-radius: 25px; margin: 20px;`)
-        container.appendChild(elem);
-    })
-    const msg = document.createElement('div');
-    msg.innerText = 'LOADING...'
-    
-    container.setAttribute("style", "display: flex; justify-content: center;")
-    msg.setAttribute("style", "text-align: center; font-size: 30px;");
-
-    loadingAnimation.appendChild(container);
-    loadingAnimation.appendChild(msg);
+    const loadingArea = document.getElementsByClassName('container')[0];
+    const loadingAnimationGIF = document.createElement('img');
+    loadingAnimationGIF.src = './loading.gif';
+    loadingAnimationGIF.setAttribute("style", "width: 800px; display: block; margin: 0px auto;")
 
     return {
         start: function() {
-            loadingArea.appendChild(loadingAnimation);
+            loadingArea.appendChild(loadingAnimationGIF);
         },
         end: function() {
-            return;
+            loadingArea.removeChild(loadingArea.firstChild);
         }
     }
 }
@@ -109,7 +96,17 @@ function getProducts(category = '전체보기') {
     })
     return promise.then(querySnapshot => {
         const products = querySnapshot.docs.map(doc => doc.data());
-        makeProductList(products);
+        const DELAY_TIME = 1500;
+        
+        // 로딩 애니메이션을 보여주기 위해
+        if (!selectedChip) {
+            setTimeout(function() {
+                loading.end();
+                makeProductList(products);
+            }, DELAY_TIME);
+        } else {
+            makeProductList(products);
+        }
     })
 }
 
