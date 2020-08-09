@@ -54,7 +54,9 @@ function makeProductList(products) {
         price.className = 'productPrice';
         description.className = 'productDesciption';
 
-        img.src = product.imgUrl;
+        img.setAttribute("data-lazy", product.imgUrl);
+        lazyLoad(img);
+
         name.innerText = '제품명 :' + product.name;
         price.innerText = '제품 가격 : \\' + convertWon(product.price);
         description.innerText = product.description;
@@ -64,6 +66,23 @@ function makeProductList(products) {
         card.appendChild(description);
         container.appendChild(card);
     })
+}
+
+// lazy loading
+function lazyLoad(target) {
+    const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.getAttribute("data-lazy");
+
+                img.setAttribute("src", src);
+                observer.disconnect();
+            }
+        })
+    })
+
+    io.observe(target);
 }
 
 // 가격을 회계형식으로 변경
@@ -97,7 +116,7 @@ function getProducts(category = '전체보기') {
     return promise.then(querySnapshot => {
         const products = querySnapshot.docs.map(doc => doc.data());
         const DELAY_TIME = 1500;
-        
+
         // 로딩 애니메이션을 보여주기 위해
         if (!selectedChip) {
             setTimeout(function() {
