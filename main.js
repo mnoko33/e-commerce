@@ -1,6 +1,24 @@
+import { createModal } from './createModal';
+
 const loading = makeLoadingAnimation();
 loading.start();
 getProducts()
+const container = document.getElementsByClassName('container')[0];
+container.addEventListener("click", function(e) {
+    if (e.target.className === "productImg") {
+        const props = {
+            title: 'product name',
+            btn: {
+                confirm: "구매하기",
+                cancel: "취소하기"
+            },
+            callback: function() {
+                console.log('구매하기 버튼 callback')
+            }
+        };
+        createModal(props)
+    }
+})
 // window.addEventListener('scroll', infiniteScroll);
 
 const categoryChips = document.getElementsByClassName('categoryChip');
@@ -53,7 +71,6 @@ function makeProductList(products) {
         name.className = 'productName';
         price.className = 'productPrice';
         description.className = 'productDesciption';
-
         img.setAttribute("data-lazy", product.imgUrl);
         lazyLoad(img);
 
