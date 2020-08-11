@@ -68,6 +68,10 @@ body {
     width: 300px;
 }
 
+.card > .productImg:hover {
+    cursor: pointer;
+}
+
 .card > .productName {
     font-weight: bold;
     margin-top: 15px;
