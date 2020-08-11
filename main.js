@@ -13,7 +13,11 @@ container.addEventListener("click", function(e) {
                 cancel: "취소하기"
             },
             callback: function() {
-                console.log('구매하기 버튼 callback')
+                /* 
+                    id로 firestore에서 데이터를 받아오고
+                    이를 modal에 content 부분에 넣어주는 로직 필요
+                */
+                console.log(e.target.parentNode.dataset.id);
             }
         };
         createModal(props)
@@ -67,6 +71,7 @@ function makeProductList(products) {
 
         // className 설정
         card.className = 'card';
+        card.setAttribute("data-id", product.id);
         img.className = 'productImg'
         name.className = 'productName';
         price.className = 'productPrice';
@@ -131,7 +136,11 @@ function getProducts(category = '전체보기') {
         }
     })
     return promise.then(querySnapshot => {
-        const products = querySnapshot.docs.map(doc => doc.data());
+        const products = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            data.id = doc.id
+            return data;
+        });
         const DELAY_TIME = 1500;
 
         // 로딩 애니메이션을 보여주기 위해
