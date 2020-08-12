@@ -13,16 +13,21 @@ function getProducts(category = '전체보기') {
         } else {
             resolve(db.collection('products').where("category", "==", category).get());
         }
-    })
+    });
     return promise.then(querySnapshot => {
         return querySnapshot.docs.map(doc => {
             const data = doc.data();
-            data.id = doc.id
+            data.id = doc.id;
             return data;
         });
     })
 }
 
+/*
+    상품 정보를 받아오는 함수
+    매개변수로 productId를 넘기며
+    해당 id를 가진 product doc의 정보를 받아온다.
+*/
 function getProductById(productId) {
     return db.collection('products').doc(productId).get()
         .then(doc => {
