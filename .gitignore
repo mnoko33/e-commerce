@@ -110,3 +110,6 @@ package-lock.json
 
 # JSON file
 data.json
+
+# jetbrain
+.idea
