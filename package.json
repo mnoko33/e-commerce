@@ -20,8 +20,17 @@
   },
   "homepage": "https://github.com/mnoko33/e-commerce#readme",
   "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
     "cheerio": "^1.0.0-rc.3",
-    "firebase": "^7.17.1"
+    "css-loader": "^4.2.1",
+    "file-loader": "^6.0.0",
+    "firebase": "^7.17.2",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "live-server": "^1.2.1",
+    "style-loader": "^1.2.1"
   },
   "devDependencies": {
     "webpack": "^4.44.1",
