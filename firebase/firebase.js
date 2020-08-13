@@ -1,5 +1,8 @@
+const firebase = require('firebase/app');
+require('firebase/firestore');
+
 // Your web app's Firebase configuration
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyDR5UFZqhtz2QyYofFSemQHBoFQW341CSs",
     authDomain: "e-commerce-3ee1f.firebaseapp.com",
     databaseURL: "https://e-commerce-3ee1f.firebaseio.com",
@@ -11,4 +14,6 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
+const db = firebase.firestore();
+
+export { db };
