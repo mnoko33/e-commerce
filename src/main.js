@@ -1,9 +1,10 @@
+import '../stylesheets/main.css';
 import { createModal }                      from './utils/createModal';
 import { convertWon }                       from './utils/convertWon';
 import { lazyLoad }                         from './utils/lazyload';
-import { scrollToTop, infiniteScroll }      from './utils/scroll';
+import { scrollToTop }      from './utils/scroll';
 import { makeLoadingAnimation }             from './utils/makeLoadingAnimation';
-import { createElement }                    from './utils/createElement';
+// import { createElement }                    from './utils/createElement';
 import { getProducts, getProductById }      from './api/products';
 
 const loading = makeLoadingAnimation();
@@ -20,16 +21,16 @@ getProducts()
         } else {
             makeProductList(products);
         }
-    })
+    });
 
 const container = document.getElementsByClassName('container')[0];
 container.addEventListener("click", function(e) {
     if (e.target.className === "productImg") {
-        const prodictId = e.target.parentNode.dataset.id;
-        getProductById(prodictId).then(product => {
+        const productId = e.target.parentNode.dataset.id;
+        getProductById(productId).then(product => {
             const content = createModalContent(product);
             const props = {
-                title: 'product name',
+                title: product['productName'],
                 btn: {
                     confirm: "구매하기",
                     cancel: "취소하기"
@@ -40,13 +41,13 @@ container.addEventListener("click", function(e) {
                         id로 firestore에서 데이터를 받아오고
                         이를 modal에 content 부분에 넣어주는 로직 필요
                     */
-                    console.log(e.target.parentNode.dataset.id);
+                    console.log('callback :', e.target.parentNode.dataset.id);
                 }
             };
             createModal(props)
         })
     }
-})
+});
 // window.addEventListener('scroll', infiniteScroll);
 
 const categoryChips = document.getElementsByClassName('categoryChip');
@@ -58,10 +59,8 @@ const selectChip = makeSelectChipFunc();
 for (let chip of categoryChips) {
     if (chip.classList.contains('selected')) {
         selectedChip = chip;
-    };
-    chip.addEventListener('click', (e) => {
-        selectChip(e)
-    });
+    }
+    chip.addEventListener('click', e => selectChip(e));
 }
 
 function makeProductList(products) {
@@ -80,7 +79,7 @@ function makeProductList(products) {
         // className 설정
         card.className = 'card';
         card.setAttribute("data-id", product.id);
-        img.className = 'productImg'
+        img.className = 'productImg';
         name.className = 'productName';
         price.className = 'productPrice';
         description.className = 'productDesciption';
@@ -112,7 +111,7 @@ function makeSelectChipFunc() {
         calledTime = e.timeStamp;
 
         switchSelectedChip(selectedChip, target);
-        getProducts(category);
+        getProducts(category).then(products => makeProductList(products));
         scrollToTop();
     }
 }
@@ -133,14 +132,13 @@ function switchSelectedChip(chip1, chip2) {
 }
 
 function createModalContent(product) {
-    console.log(product)
     const container = document.createElement('div');
     container.setAttribute("style", "width: 100%; display: flex; background-color: black;");
 
     // img
     const imgArea = document.createElement('div');
     const img = document.createElement('img');
-    img.src = product.imgUrl
+    img.src = product.imgUrl;
     img.style.width = '100%';
     imgArea.appendChild(img);
     imgArea.setAttribute("style", "width: 40%; margin: 0 5%; background-color: yellow;");
