@@ -1,4 +1,4 @@
-export { getProducts, getProductById }
+import { db } from '../../firebase/firebase';
 
 /*
     상품 리스트를 받아오는 함수
@@ -38,3 +38,5 @@ function getProductById(productId) {
             }
         });
 }
+
+export { getProducts, getProductById }
