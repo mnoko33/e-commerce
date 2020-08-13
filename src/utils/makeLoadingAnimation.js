@@ -1,10 +1,12 @@
 export { makeLoadingAnimation }
+import loadingAnimation from '../../images/loading.gif';
+
 
 function makeLoadingAnimation() {
     const loadingArea = document.getElementsByClassName('container')[0];
     const loadingAnimationGIF = document.createElement('img');
-    loadingAnimationGIF.src = './images/loading.gif';
-    loadingAnimationGIF.setAttribute("style", "width: 800px; display: block; margin: 0px auto;")
+    loadingAnimationGIF.src = loadingAnimation;
+    loadingAnimationGIF.setAttribute("style", "width: 800px; display: block; margin: 0px auto;");
 
     return {
         start: function() {
