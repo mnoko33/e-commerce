@@ -1,11 +1,11 @@
 import '../stylesheets/main.css';
-import { createModal }                      from './utils/createModal';
-import { convertWon }                       from './utils/convertWon';
-import { lazyLoad }                         from './utils/lazyload';
-import { scrollToTop }      from './utils/scroll';
-import { makeLoadingAnimation }             from './utils/makeLoadingAnimation';
-// import { createElement }                    from './utils/createElement';
-import { getProducts, getProductById }      from './api/products';
+import {createModal} from './utils/createModal';
+import {convertWon} from './utils/convertWon';
+import {lazyLoad} from './utils/lazyload';
+import {scrollToTop} from './utils/scroll';
+import {makeLoadingAnimation} from './utils/makeLoadingAnimation';
+// import { createElement } from './utils/createElement';
+import {getProductById, getProducts} from './api/products';
 
 const loading = makeLoadingAnimation();
 loading.start();
@@ -30,7 +30,7 @@ container.addEventListener("click", function(e) {
         getProductById(productId).then(product => {
             const content = createModalContent(product);
             const props = {
-                title: product['productName'],
+                title: product['name'],
                 btn: {
                     confirm: "구매하기",
                     cancel: "취소하기"
