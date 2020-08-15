@@ -92,14 +92,14 @@ body {
     width: 200px;
 }
 
-.recently-viewd-box {
+.recently-viewed-box {
     width: 150px;
     height: 500px;
     position: fixed;
     top: 300px;
 }
 
-.recently-viewd-box > div:nth-child(1) {
+.recently-viewed-box > div:nth-child(1) {
     font-weight: bold;
     height: 30px;
     border-bottom: 2px solid #FFD608;
