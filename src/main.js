@@ -44,6 +44,7 @@ container.addEventListener("click", function(e) {
                     console.log('callback :', e.target.parentNode.dataset.id);
                 }
             };
+            addRecentProductBox(product);
             createModal(props)
         })
     }
@@ -133,7 +134,7 @@ function switchSelectedChip(chip1, chip2) {
 
 function createModalContent(product) {
     const container = document.createElement('div');
-    container.setAttribute("style", "width: 100%; display: flex; background-color: black;");
+    container.setAttribute("style", "width: 100%; display: flex;");
 
     // img
     const imgArea = document.createElement('div');
@@ -141,13 +142,54 @@ function createModalContent(product) {
     img.src = product.imgUrl;
     img.style.width = '100%';
     imgArea.appendChild(img);
-    imgArea.setAttribute("style", "width: 40%; margin: 0 5%; background-color: yellow;");
+    imgArea.setAttribute("style", "width: 40%; margin: 0 5%;");
 
     // content info
     const contentArea = document.createElement('div');
-    contentArea.setAttribute("style", "width: 40%; margin: 0 5%; background-color: red;");
+    contentArea.setAttribute("style", "width: 40%; margin: 0 5%;");
 
-    container.appendChild(imgArea);
-    container.appendChild(contentArea);
+    const category = document.createElement('div');
+    const price = document.createElement('div');
+    const description = document.createElement('div');
+
+    [category, price, description].forEach(node => node.setAttribute("style", "margin-bottom: 10px;"));
+    category.innerText = `상품 분류 : ${product.category}`;
+    price.innerText = `가격 : ${product.price}`;
+    description.innerText = product.description;
+    contentArea.append(category, price, description);
+
+    container.append(imgArea, contentArea);
     return container;
+}
+
+function createRecentProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute("style", "display: flex; margin: 3px 0; padding: 0;");
+    const img = document.createElement('img');
+    img.src = product.imgUrl;
+    img.style.width = "30%";
+
+    const nameSection = document.createElement('div');
+    nameSection.innerText = product.name;
+    nameSection.style['margin-left'] = "5px";
+
+    card.append(img, nameSection);
+    return card;
+}
+
+function addRecentProductBox(product) {
+    const MAX_BOX_LIMIT = 5;
+    const recentlyViewedBox = document.querySelector('.recently-viewed-box > .list');
+    const cardList = recentlyViewedBox.childNodes;
+    const newCard = createRecentProductCard(product);
+
+    for (let i = 0; i < cardList.length; i++) {
+        const card = cardList[i];
+        if (product.name === card.lastChild.innerText) return;
+        if (i === MAX_BOX_LIMIT - 1) {
+            recentlyViewedBox.removeChild(recentlyViewedBox.lastChild);
+        }
+    }
+    recentlyViewedBox.prepend(newCard);
 }
