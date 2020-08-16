@@ -31,6 +31,7 @@ function createModal(props = {}) {
     ];
     const scrollHandler = e => {
         if (e === "onwheel" in document ? "wheel" : "mousewheel" || (e === 'keydown' && (e.which === 38 || e.which === 40))) {
+            // 모든 keydown 이벤트가 안되는 것을 해결해야함 (esc 누르면 모달이 닫히는 기능을 위해서)
             e.preventDefault();
         }
     };
