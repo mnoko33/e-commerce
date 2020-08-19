@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config webpack/webpack.config.js && node server.js",
+    "devserver": "live-server",
+    "start": "live-server",
     "build": "webpack --config webpack/webpack.config.js"
   },
   "repository": {

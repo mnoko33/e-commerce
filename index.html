@@ -3,31 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css" />
     <title>E-commerce</title>
 </head>
 <body>
-    <div class="main">
-        <div class="header">
-            <div class="title">E-COMMERCE</div>
-            <div class="categoryList">
-                <div class="categoryChip selected">전체보기</div>
-                <div class="categoryChip">아우터</div>
-                <div class="categoryChip">상의</div>
-                <div class="categoryChip">셔츠/블라우스</div>
-                <div class="categoryChip">팬츠/데님</div>
-                <div class="categoryChip">스커트</div>
-                <div class="categoryChip">원피스</div>
-            </div>
-        </div>
-        <div class="products">
-            <div class="container"></div>
-            <div class="recently-viewed">
-                <div class="recently-viewed-box">
-                    <div>최근 본 상품</div>
-                    <div class="list"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="App"></div>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+    <script src="src/firebase/firebase.js"></script>
+    <script src="src/api.js"></script>
+    <script src="src/utils/convertWon.js"></script>
+    <script src="src/utils/lazyload.js"></script>
+    <script src="src/components/ProductInfo.js"></script>
+    <script src="src/components/ProductList.js"></script>
+    <script src="src/components/Header.js"></script>
+    <script src="src/components/CategoryList.js"></script>
+    <script src="src/App.js"></script>
+    <script src="src/main.js"></script>
 </body>
 </html>
