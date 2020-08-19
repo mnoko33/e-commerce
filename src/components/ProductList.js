@@ -31,6 +31,7 @@ class ProductList {
         // lazyloading 적용
         document.querySelectorAll('.product-img').forEach(img => lazyLoad(img));
         
+        // TODO: event delegation으로 수정해보자
         document.querySelectorAll('.product').forEach((product, idx) => {
             product.addEventListener("click", () => {
                 this.handleProductClick(this.state.data[idx])
