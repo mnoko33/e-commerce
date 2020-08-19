@@ -72,6 +72,10 @@
     margin-top: 10px;
 }
 
+.product-name:hover, .product-img:hover {
+    cursor: pointer;
+}
+
 .product-price, .product-description {
     margin-top: 7px;
 }
@@ -170,4 +174,28 @@
     font-size: 28px;
     background-color: transparent;
     border: 0px;
+}
+
+.footer {
+    height: 150px;
+    margin-top: 100px;
+    background-color: #e8e8e8;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.footer > div {
+    margin: -10px;
+}
+
+.github-logo {
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.github-logo:hover {
+    cursor: pointer;
 }

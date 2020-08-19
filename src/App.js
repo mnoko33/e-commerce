@@ -42,6 +42,8 @@ class App {
             product: null, 
             visible: false, 
         });
+
+        this.footer = new Footer($app);
     }
 
     updateData(newData) {
