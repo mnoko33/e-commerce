@@ -1,5 +1,5 @@
-const firebase = require('firebase/app');
-require('firebase/firestore');
+// const firebase = require('firebase/app');
+// require('firebase/firestore');
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,5 +15,3 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
-export { db };

@@ -1,4 +1,4 @@
-export { lazyLoad };
+// export { lazyLoad };
 
 // lazy loading
 function lazyLoad(target) {
