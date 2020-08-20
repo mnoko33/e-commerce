@@ -4,9 +4,7 @@ class App {
     constructor($app) {
         this.$app = $app;
         this.data = [];
-        api.getProducts('전체보기').then(newData => {
-            this.updateData(newData)
-        });
+        this.loadingVisibility = false;
 
         this.header = new Header($app);
 
@@ -52,12 +50,24 @@ class App {
             handleProductClick: (product) => {
                 this.productInfo.showProductInfo({ 
                     product, 
-                    visible: true 
+                    visible: true,
                 });
             }
         });
 
         this.footer = new Footer($app);
+
+        this.loading = new Loading({
+            $app,
+            visible: true,
+        });
+
+        api.getProducts('전체보기').then(newData => {
+            setTimeout(() => {
+                this.updateData(newData)
+                this.loading.toggleVisibility({ visible: false });
+            }, 2500)
+        });
     }
 
     updateData(newData) {
@@ -67,5 +77,9 @@ class App {
 
     toggleSidebar() {
         this.sidebar.toggle();
+    }
+
+    toggleLoadingAnime() {
+
     }
 }
