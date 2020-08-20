@@ -57,6 +57,7 @@
 }
 
 .product-list {
+    min-height: calc(100vh - 210px);
     margin: 150px auto 0;
     display: grid;
     justify-content: center;
@@ -129,6 +130,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.85);
+    z-index: 9998;
 }
 
 .product-info {
@@ -174,6 +176,54 @@
     font-size: 28px;
     background-color: transparent;
     border: 0px;
+}
+
+.sidebar {
+    position: fixed;
+    top: calc((100vh - 600px) / 2);
+    right: 0;
+    display: flex;
+}
+
+.sidebar-toggle-btn {
+    width: 50px;
+    height: 50px;
+    margin-top: 275px;
+    background-color: #FFD608;
+    text-align: center;
+    line-height: 50px;;
+    z-index: 9997;
+}
+
+.sidebar-toggle-btn:hover {
+    cursor: pointer;
+}
+
+.sidebar-body {
+    width: 0px;
+    min-height: 600px;
+    background-color: #FFD608;
+    padding: 0 10px 10px;
+}
+
+.recently-viewed {
+    text-align: center;
+    padding: 5px 0;
+    font-size: 17px;
+    font-weight: bolder;
+    border-bottom: 1px solid black;
+}
+
+.recently-viewed-product {
+    margin-top: 5px;
+}
+
+.recently-viewed-product:hover {
+    cursor: pointer;
+}
+
+.recently-viewed-product > div {
+    text-align: center;
 }
 
 .footer {

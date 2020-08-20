@@ -1,8 +1,8 @@
 class ProductInfo {
     constructor({ $app, product, visible }) {
-        this.$bg = document.createElement('div');
-        this.$bg.className = 'bg';
-        $app.appendChild(this.$bg);
+        this.bg = document.createElement('div');
+        this.bg.className = 'bg';
+        $app.appendChild(this.bg);
 
         this.state = { product, visible };
         
@@ -22,7 +22,7 @@ class ProductInfo {
     render() {
         const product = this.state.product;
         if (this.state.visible) {
-            this.$bg.innerHTML = `
+            this.bg.innerHTML = `
                 <div class="product-info">
                     <div class="product-info-header">
                         <h1>${product.name}</h1>
@@ -40,7 +40,7 @@ class ProductInfo {
                     </div>
                 </div>
             `;
-            this.$bg.style.display = "block";
+            this.bg.style.display = "block";
             document.querySelector('#close-btn').addEventListener("click", () => {
                 this.closeProductInfo();
             }, { once: true });
@@ -55,7 +55,7 @@ class ProductInfo {
                 }
             }, { once: true })
         } else {
-            this.$bg.style.display = "none";
+            this.bg.style.display = "none";
         }
     }
 }

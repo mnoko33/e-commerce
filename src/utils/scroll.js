@@ -1,4 +1,4 @@
-export { scrollToTop, infiniteScroll }
+// export { scrollToTop, infiniteScroll }
 
 // 스크롤을 최상단으로 이동시키는 함수
 function scrollToTop() {

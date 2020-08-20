@@ -1,15 +1,15 @@
 class Footer {
     constructor($app) {
         this.$app = $app;
-        this.$footer = document.createElement('div');
-        this.$footer.className = 'footer';
-        this.$app.appendChild(this.$footer);
+        this.footer = document.createElement('div');
+        this.footer.className = 'footer';
+        this.$app.appendChild(this.footer);
 
         this.render();
     }
 
     render() {
-        this.$footer.innerHTML = `
+        this.footer.innerHTML = `
             <a target="_blank" href="https://github.com/mnoko33/e-commerce">
                 <img class="github-logo" src="../images/github.png" alt="github">
             </a>
