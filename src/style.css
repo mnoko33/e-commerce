@@ -249,3 +249,37 @@
 .github-logo:hover {
     cursor: pointer;
 }
+
+.loading-box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-letter {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    color: #FFD608;;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: 10px;
+}
+
+.loading-box > .move {
+    animation-name: movingBox;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes movingBox {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, -100px);
+    }
+}
