@@ -18,7 +18,13 @@ class Sidebar {
 
     toggle = () => {
         this.state = { ...this.state, toggle: !this.state.toggle }
-        this.render();
+        const toggle = this.state.toggle;
+        const sidebarBody = document.querySelector('.sidebar-body')
+        this.sidebar.style.width = toggle ? "180px" : "50px";
+        sidebarBody.style.right = toggle ?  "0px" : "-130px";
+        sidebarBody.style.padding = toggle ? "0px 10px 10px" : "0px";
+        document.querySelector('.sidebar-body').style.right = toggle ?  "0px" : "-130px";
+        document.querySelector('.sidebar-toggle-btn').innerText = toggle ? "▶" : "◀";
     }
 
     addRecentlyViewed = (product) => {
@@ -30,7 +36,32 @@ class Sidebar {
             list.shift();
         }
         list.push(product);
-        this.render();
+        document.querySelector('.recently-viewed-wrapper').innerHTML = `
+            ${this.state.list.map(
+                product => `
+                    <div class="recently-viewed-product" id="product-${product.id}">
+                        <img src="${product.imgUrl}" width="110" alt="${product.name}">
+                        <div>${product.name}</div>
+                    </div>
+                `
+                ).join("")
+            }
+        `;
+
+        const recentlyViewedBox = document.querySelector('.sidebar-body');
+
+        recentlyViewedBox.addEventListener("click", (e) => {
+            const clickedProduct = e.target.parentNode
+            if (clickedProduct.className === 'recently-viewed-product') {
+                e.stopPropagation();
+                console.log()
+                const clikedId = clickedProduct.id.split('-')[1];
+                const product = this.state.list.find(elem => elem.id == clikedId)
+                if (product) {
+                    this.handleProductClick(product);
+                }
+            }
+        })
     }
 
     render() {
@@ -40,38 +71,9 @@ class Sidebar {
             <div class="sidebar-toggle-btn">${this.state.toggle ? RIGHT : LEFT}</div>
             <div class="sidebar-body">
                 <div class="recently-viewed">최근 본 상품</div>
-                ${this.state.list.map(
-                    product => `
-                        <div class="recently-viewed-product" id="product-${product.id}">
-                            <img src="${product.imgUrl}" width="110" alt="${product.name}">
-                            <div>${product.name}</div>
-                        </div>
-                    `
-                    ).join("")
-                }
+                <div class="recently-viewed-wrapper"></div>
             </div>
-        `;
-
-        document.querySelector('.sidebar-toggle-btn').addEventListener("click", this.handleSidebarClick)
-        document.querySelector('.sidebar-body').style.width = this.state.toggle ? '130px' : '0px';
-        document.querySelector('.sidebar-body').style.display = this.state.toggle ? 'block' : 'none';
-        
-        const recentlyViewedBox = document.querySelector('.sidebar-body');
-        if (recentlyViewedBox) {
-            console.log(recentlyViewedBox)
-            recentlyViewedBox.addEventListener("click", (e) => {
-                const clickedProduct = e.target.parentNode
-                console.log(clickedProduct)
-                if (clickedProduct.className === 'recently-viewed-product') {
-                    e.stopPropagation();
-                    console.log()
-                    const clikedId = clickedProduct.id.split('-')[1];
-                    const product = this.state.list.find(elem => elem.id == clikedId)
-                    if (product) {
-                        this.handleProductClick(product);
-                    }
-                }
-            })
-        }
+        `
+        document.querySelector('.sidebar-toggle-btn').addEventListener("click", this.toggle);
     }
 }

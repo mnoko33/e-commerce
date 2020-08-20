@@ -182,7 +182,10 @@
     position: fixed;
     top: calc((100vh - 600px) / 2);
     right: 0;
+    position: fixed;
+    width: 50px;
     display: flex;
+    transition: 0.5s;
 }
 
 .sidebar-toggle-btn {
@@ -200,10 +203,12 @@
 }
 
 .sidebar-body {
-    width: 0px;
+    position: fixed;
+    right: -130px;
+    width: 130px;
     min-height: 600px;
     background-color: #FFD608;
-    padding: 0 10px 10px;
+    transition: 0.5s;
 }
 
 .recently-viewed {
