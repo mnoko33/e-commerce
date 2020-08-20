@@ -34,6 +34,7 @@ class App {
                     product, 
                     visible: true 
                 });
+                this.sidebar.addRecentlyViewed(product);
             }
         })
 
@@ -42,6 +43,19 @@ class App {
             product: null, 
             visible: false, 
         });
+        
+        this.sidebar = new Sidebar({ 
+            $app,
+            handleSidebarClick: () => {
+                this.toggleSidebar();
+            },
+            handleProductClick: (product) => {
+                this.productInfo.showProductInfo({ 
+                    product, 
+                    visible: true 
+                });
+            }
+        });
 
         this.footer = new Footer($app);
     }
@@ -49,5 +63,9 @@ class App {
     updateData(newData) {
         this.data = newData;
         this.productList.updateProducts(newData);
+    }
+
+    toggleSidebar() {
+        this.sidebar.toggle();
     }
 }
