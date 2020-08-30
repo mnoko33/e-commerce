@@ -1,4 +1,4 @@
-![](C:\Users\mnoko\mnoko\pjt\e-commerce\assets\main.png)
+![](./assets/main.png)
 
 
 
@@ -30,7 +30,7 @@ vanillaJS를 이용하여 온라인 쇼핑몰 사이트를 간단하게 만드�
 
 # Summary
 
-![](C:\Users\mnoko\mnoko\pjt\e-commerce\assets\loading.gif)
+![](./assets/loading.gif)
 
 ## Loading
 
@@ -40,7 +40,7 @@ css3 `transform`의 ``translate`` 속성을 이용하여 로딩 화면을 구현
 
 
 
-![](C:\Users\mnoko\mnoko\pjt\e-commerce\assets\category_list.gif)
+![](./assets/category_list.gif)
 
 ## Category List & Product List
 
@@ -52,7 +52,7 @@ css3 `transform`의 ``translate`` 속성을 이용하여 로딩 화면을 구현
 
 
 
-![](C:\Users\mnoko\mnoko\pjt\e-commerce\assets\detail_modal.gif)
+![](./assets/detail_modal.gif)
 
 ## Detail page with Modal
 
@@ -64,7 +64,7 @@ product 카드를 클릭하면 모달을 통해 디테일 페이지를 보여줍
 
 
 
-![](C:\Users\mnoko\mnoko\pjt\e-commerce\assets\sidebar.gif)
+![](./assets/sidebar.gif)
 
 ## Sidebar
 
