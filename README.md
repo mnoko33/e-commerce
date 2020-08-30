@@ -6,27 +6,27 @@
 
 vanillaJS를 이용하여 온라인 쇼핑몰 사이트를 간단하게 만드는 프로젝트입니다. 
 
+<br/>
 
-
-## Installation
+# Installation
 
 ``npm install && npm run start``
 
+<br/>
 
-
-## Data
+# Data
 
 ``https://66girls.co.kr`` 를 크롤링하여 firestore에 저장해서 사용했습니다.
 
+<br/>
 
-
-## Project
+# Project
 
 ``FE``: vanilaJS + live-server
 
 ``BE``: firebase (serverless)
 
-
+<br/>
 
 # Summary
 
@@ -38,7 +38,9 @@ css3 `transform`의 ``translate`` 속성을 이용하여 로딩 화면을 구현
 
 > 위치: `src/components/Loading.js`
 
+<br/>
 
+<br/>
 
 ![](./assets/category_list.gif)
 
@@ -48,9 +50,9 @@ css3 `transform`의 ``translate`` 속성을 이용하여 로딩 화면을 구현
 
 > 위치: ``src/components/CategoryList.js``, ``src/components/ProductList.js``
 
+<br/>
 
-
-
+<br/>
 
 ![](./assets/detail_modal.gif)
 
@@ -60,9 +62,9 @@ product 카드를 클릭하면 모달을 통해 디테일 페이지를 보여줍
 
 > 위치: `src/components/ProductInfo.js`
 
+<br/>
 
-
-
+<br/>
 
 ![](./assets/sidebar.gif)
 
