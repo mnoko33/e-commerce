@@ -1,5 +1,3 @@
-console.log("App is running");
-
 class App {
     constructor($app) {
         this.$app = $app;

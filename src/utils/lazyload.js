@@ -1,5 +1,3 @@
-// export { lazyLoad };
-
 // lazy loading
 function lazyLoad(target) {
     const io = new IntersectionObserver((entries, observer) => {
