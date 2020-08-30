@@ -1,6 +1,3 @@
-// const firebase = require('firebase/app');
-// require('firebase/firestore');
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDR5UFZqhtz2QyYofFSemQHBoFQW341CSs",
