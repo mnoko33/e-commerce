@@ -1,4 +1,4 @@
-![](C:\Users\mnoko\mnoko\pjt\e-commerce\assets\main.png)
+![](./assets/main.png)
 
 
 
