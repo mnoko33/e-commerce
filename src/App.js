@@ -55,7 +55,7 @@ class App {
     api.getProducts('전체보기').then(newData => {
       setTimeout(() => {
         this.updateData(newData)
-        this.loading.toggleVisibility({ visible: false });
+        this.loading.setLoadingOff();
       }, 2500)
     });
   }
