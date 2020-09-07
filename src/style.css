@@ -123,7 +123,8 @@
     }
 }
 
-.bg {
+.bg.on {
+    display: block;
     position: fixed;
     left: 0;
     top: 0;
@@ -131,6 +132,10 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.85);
     z-index: 9998;
+}
+
+.bg.off {
+    display: none;
 }
 
 .product-info {
