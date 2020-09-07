@@ -1,57 +1,50 @@
 class Loading {
-    constructor({ $app, visible }) {
-        this.bg = document.createElement('div');
-        this.bg.classList.add('animation');
-        this.bg.classList.add('bg');
-        $app.appendChild(this.bg);
+  constructor({ $app, visible }) {
+    this.bg = document.createElement('div');
+    this.bg.className = visible ? 'animation bg on' : 'animation bg off';
+    $app.appendChild(this.bg);
 
-        this.state = { visible }
+    this.state = { visible }
 
-        this.render();
+    this.render();
+  }
+
+  render() {
+    if (this.state.visible) {
+      this.bg.innerHTML = `
+        <div class="loading-box">
+          ${'LOADING...'
+            .split('')
+            .map(letter => `<div class="loading-letter">${letter}</div>`)
+            .join('')}
+        </div>
+        `;
+      this.addAnimationEffect();
+      this.bg.classList.add('on');
+      this.bg.classList.remove('off');
+    } else {
+      this.bg.innerHTML = '';
+      this.bg.classList.add('off')
+      this.bg.classList.remove('on')
     }
-    
-    toggleVisibility({ visible }) {
-        this.state = { ...this.state, visible }
-        this.render();
+  }
 
-    }
+  setLoadingOn() {
+    this.state.visible = true;
+    this.render();
+  }
 
-    render() {
-        const visible = this.state.visible;
-        this.bg.style.display = visible ? "block" : "none";
-        
-        if (visible) {
-            this.bg.innerHTML = 
-            `
-            <div class="loading-box">
-                <div class="loading-letter">L</div>
-                <div class="loading-letter">O</div>
-                <div class="loading-letter">A</div>
-                <div class="loading-letter">D</div>
-                <div class="loading-letter">I</div>
-                <div class="loading-letter">N</div>
-                <div class="loading-letter">G</div>
-                <div class="loading-letter">.</div>
-                <div class="loading-letter">.</div>
-                <div class="loading-letter">.</div>
-            </div>
-            `;
-        } else {
-            this.bg.innerHTML = '';
-        }
+  setLoadingOff() {
+    this.state.visible = false;
+    this.render();
+  }
 
-        // 애니메이션 적용하기 위한 move class 추가
-        const loadingLetterList = document.querySelectorAll('.loading-letter');
-        if (visible) {
-            loadingLetterList.forEach((letter, idx) => {
-                setTimeout(() => {
-                    letter.classList.add('move')
-                }, 100 * idx);
-            });
-        } else {
-            loadingLetterList.forEach(letter => {
-                letter.classList.remove('move');
-            })
-        }
-    }
+  addAnimationEffect() {
+    const loadingLetterList = document.querySelectorAll('.loading-letter');
+    loadingLetterList.forEach((letter, idx) => {
+      setTimeout(() => {
+        letter.classList.add('move')
+      }, 100 * idx);
+    });
+  }
 }
