@@ -32,10 +32,15 @@ const api = {
     },
 
     getProductById: pid => {
-        return db.collection('products').doc(productId).get()
+        if (dummyMode) {
+            return new Promise(resolve => {
+                resolve({ ...dummyData[pid], id: pid });
+            })
+        }
+        return db.collection('products').doc(`${pid}`).get()
             .then(doc => {
                 if (doc.exists) {
-                    return doc.data();
+                    return { ...doc.data(), id: doc.id };
                 } else {
                     console.error(`doc id ${pid} does not exist`);
                 }
