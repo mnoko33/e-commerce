@@ -19,7 +19,7 @@ class ProductList {
   render() {
     this.productList.innerHTML = this.state.data.map(
       product => `
-        <div class="product" id="product-${product.id}">
+        <div class="product" data-id="${product.id}" id="product-${product.id}">
           <img class="product-img" data-lazy="${product.imgUrl}" alt="${product.name}" />
           <div class="product-name">제품명: ${product.name}</div>
           <div class="product-price">제품 가격: \\${convertWon(product.price)}</div>
@@ -35,7 +35,7 @@ class ProductList {
     this.productList.addEventListener('click', (e) => {
       if (e.target.className === 'product-img' || e.target.className === 'product-name') {
         e.stopPropagation();
-        const clickedId = e.target.parentNode.id.split('-')[1];
+        const clickedId = e.target.parentNode.dataset.id;
         const product = this.state.data.find(elem => elem.id == clickedId);
         if (product) {
           this.handleProductClick(product.id);
