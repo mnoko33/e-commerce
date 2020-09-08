@@ -17,13 +17,10 @@ class App {
     this.productList = new ProductList({
       $app,
       initialData: this.data,
-      handleProductClick: (product) => {
-        this.productInfo.showProductInfo({ 
-          product, 
-          visible: true 
-        });
-        this.sidebar.addRecentlyViewed(product);
-      }
+      handleProductClick: id => this.showClickedProductInfo({
+        id,
+        callback: (product) => this.sidebar.addRecentlyViewed(product)
+      })
     })
 
     this.productInfo = new ProductInfo({ 
@@ -34,15 +31,8 @@ class App {
         
     this.sidebar = new Sidebar({ 
       $app,
-      handleSidebarClick: () => {
-          this.toggleSidebar();
-      },
-      handleProductClick: (product) => {
-        this.productInfo.showProductInfo({ 
-          product, 
-          visible: true,
-        });
-      }
+      handleProductClick: id => this.showClickedProductInfo({ id }),
+      MAX_QUEUE_SIZE: 3,
     });
 
     this.footer = new Footer($app);
@@ -56,7 +46,7 @@ class App {
       setTimeout(() => {
         this.updateData(newData)
         this.loading.setLoadingOff();
-      }, 2500)
+      }, 0)
     });
   }
 
@@ -65,16 +55,25 @@ class App {
     this.productList.updateProducts(newData);
   }
 
-  toggleSidebar() {
-    this.sidebar.toggle();
-  }
-
   beforeFetchApi() {
     this.loading.setLoadingOn();
   }
 
   beforeUpdateData() {
     this.loading.setLoadingOff();
+  }
+
+  showClickedProductInfo({ id, callback }) {
+    api.getProductById(id)
+      .then(res => {
+        if (callback) {
+          callback(res)
+        };
+        this.productInfo.showProductInfo({ 
+          product: res, 
+          visible: true 
+        });
+      })
   }
 
   fetchGetProductsApi(categoryName) {
