@@ -9,8 +9,12 @@ class App {
     this.categoryList = new CategoryList({ 
       $app, 
       updateProductList: (categoryName) => {
+        this.beforeFetchApi();
         api.getProducts(categoryName)
-          .then(newData => this.updateData(newData))
+          .then(newData => {
+            this.beforeUpdateData();
+            this.updateData(newData)
+          })
       }
     });
 
@@ -43,10 +47,8 @@ class App {
     });
 
     api.getProducts('전체보기').then(newData => {
-      setTimeout(() => {
-        this.updateData(newData)
-        this.loading.setLoading({ visible: false });
-      }, 500);
+      this.updateData(newData)
+      this.loading.setLoading({ visible: false });
     });
   }
 
