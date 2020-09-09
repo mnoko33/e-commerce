@@ -45,8 +45,8 @@ class App {
     api.getProducts('전체보기').then(newData => {
       setTimeout(() => {
         this.updateData(newData)
-        this.loading.setLoadingOff();
-      }, 0)
+        this.loading.setLoading({ visible: false });
+      }, 500);
     });
   }
 
@@ -56,11 +56,11 @@ class App {
   }
 
   beforeFetchApi() {
-    this.loading.setLoadingOn();
+    this.loading.setLoading({ visible: true });
   }
 
   beforeUpdateData() {
-    this.loading.setLoadingOff();
+    this.loading.setLoading({ visible: false });
   }
 
   showClickedProductInfo({ id, callback }) {

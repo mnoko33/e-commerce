@@ -29,13 +29,8 @@ class Loading {
     }
   }
 
-  setLoadingOn() {
-    this.state.visible = true;
-    this.render();
-  }
-
-  setLoadingOff() {
-    this.state.visible = false;
+  setLoading ({ visible }) {
+    this.state.visible = visible;
     this.render();
   }
 
