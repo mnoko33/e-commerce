@@ -28,6 +28,12 @@ vanillaJS를 이용하여 온라인 쇼핑몰 사이트를 간단하게 만드�
 
 <br/>
 
+# Version
+
+`2020-09-10` : 리팩토링 및 카테고리 선택 시 딜레이 기능 추가 
+
+<br/>
+
 # Summary
 
 ![](./assets/loading.gif)
