@@ -14,28 +14,17 @@ class Sidebar {
     this.render();
   }
 
-  openSidebar() {
-    this.visible = true;
-    document.querySelector('.sidebar-toggle-btn').innerText = '▶';
+  setSidebar({ visible }) {
+    this.visible = visible;
+    document.querySelector('.sidebar-toggle-btn').innerText = this.visible ? '▶' : '◀';
     ['.sidebar-body', '.sidebar'].forEach(selector => {
-      document.querySelector(selector).classList.remove('hidden');
+      const target = document.querySelector(selector)
+      if (this.visible) {
+        target.classList.remove('hidden');
+      } else {
+        target.classList.add('hidden');
+      }
     })
-  }
-  
-  closeSidebar() {
-    this.visible = false;
-    document.querySelector('.sidebar-toggle-btn').innerText = '◀';
-    ['.sidebar-body', '.sidebar'].forEach(selector => {
-      document.querySelector(selector).classList.add('hidden');
-    })
-  }
-
-  toggleSidebar() {
-    if (this.visible) {
-      this.closeSidebar();
-    } else {
-      this.openSidebar();
-    }
   }
 
   // 상품 리스트에서 상품을 클릭하면 해당 상품을 recentlyViewedQueue에 추가
@@ -80,7 +69,7 @@ class Sidebar {
     `
 
     document.querySelector('.sidebar-toggle-btn').addEventListener("click", () => {
-      this.toggleSidebar();
+      this.setSidebar({ visible: !this.visible })
     });
   }
 }
