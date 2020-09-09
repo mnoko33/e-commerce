@@ -27,9 +27,7 @@ class ProductList {
     this.state = { ...this.state, data: newData }
     this.render();
   }
-
   
-
   render() {
     this.productList.innerHTML = this.state.data.map(
       product => `
