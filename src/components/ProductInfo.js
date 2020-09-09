@@ -13,8 +13,7 @@ class ProductInfo {
   render() {
     if (this.state.visible) {
       const { product } = this.state;
-      this.bg.classList.remove('off');
-      this.bg.classList.add('on');
+      this.toggleBg();
       this.bg.innerHTML = `
         <div class="product-info">
           <div class="product-info-header">
@@ -37,15 +36,24 @@ class ProductInfo {
       this.addEscKeydownListener();
 
     } else {
-      this.bg.classList.remove('on');
-      this.bg.classList.add('off');
+      this.toggleBg();
       this.bg.innerHTML = '';
     }
+  }
+
+  toggleBg() {
+    this.bg.classList.add(this.state.visible ? 'on' : 'off');
+    this.bg.classList.remove(this.state.visible ? 'off' : 'on');
   }
 
   showProductInfo({ product, visible }) {
     this.state = { product, visible }
     this.render();
+  }
+
+  removeEscKeydownListener() {
+    document.removeEventListener('keydown', this.keydownEscListener);
+    this.keydownEscListener = null;
   }
 
   closeProductInfo() {
@@ -69,10 +77,5 @@ class ProductInfo {
       }
     }
     document.addEventListener('keydown', this.keydownEscListener);
-  }
-
-  removeEscKeydownListener() {
-    document.removeEventListener('keydown', this.keydownEscListener);
-    this.keydownEscListener = null;
   }
 }
