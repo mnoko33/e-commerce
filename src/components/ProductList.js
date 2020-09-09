@@ -9,12 +9,26 @@ class ProductList {
     }
 
     this.handleProductClick = handleProductClick;
+
+    // productList에 event delegation 적용
+    this.productList.addEventListener('click', (e) => {
+      if (e.target.className === 'product-img' || e.target.className === 'product-name') {
+        e.stopPropagation();
+        const clickedId = e.target.parentNode.dataset.id;
+        const product = this.state.data.find(elem => elem.id == clickedId);
+        if (product) {
+          this.handleProductClick(product.id);
+        }
+      }
+    })
   }
 
   updateProducts(newData) {
     this.state = { ...this.state, data: newData }
     this.render();
   }
+
+  
 
   render() {
     this.productList.innerHTML = this.state.data.map(
@@ -30,17 +44,5 @@ class ProductList {
     
     // lazyloading 적용
     document.querySelectorAll('.product-img').forEach(img => lazyLoad(img));
-    
-    // productList에 event delegation 적용
-    this.productList.addEventListener('click', (e) => {
-      if (e.target.className === 'product-img' || e.target.className === 'product-name') {
-        e.stopPropagation();
-        const clickedId = e.target.parentNode.dataset.id;
-        const product = this.state.data.find(elem => elem.id == clickedId);
-        if (product) {
-          this.handleProductClick(product.id);
-        }
-      }
-    })
   }
 }
