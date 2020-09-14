@@ -9,35 +9,34 @@ function delay () {
 
 const api = {
   getProducts: async category => {
-      if (dummyMode) {
-        await delay();
-        return new Promise(resolve => {
-          resolve(dummyData.map((product, idx) => {
-            return { ...product, id: idx }
-          }))
-        })
+    await delay();
+    if (dummyMode) {
+      return new Promise(resolve => {
+        resolve(dummyData.map((product, idx) => {
+          return { ...product, id: idx }
+        }))
+      })
+    }
+    return new Promise((resolve) => {
+      if (category === '전체보기') {
+        resolve(db.collection('products').get());
+      } else {
+        resolve(db.collection('products').where("category", "==", category).get());
       }
-      await delay();
-      return new Promise((resolve) => {
-        if (category === '전체보기') {
-          resolve(db.collection('products').get());
-        } else {
-          resolve(db.collection('products').where("category", "==", category).get());
-        }
+    })
+    .then(querySnapshot => {
+      return querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        data.id = doc.id;
+        return data;
       })
-      .then(querySnapshot => {
-        return querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          data.id = doc.id;
-          return data;
-        })
-      })
-      .catch(err => {
-        console.error(err);
-        return dummyData.map((product, idx) => {
-                    return { ...product, id: idx }
-                });
-      })
+    })
+    .catch(err => {
+      console.error(err);
+      return dummyData.map((product, idx) => {
+                  return { ...product, id: idx }
+              });
+    })
   },
 
   getProductById: async pid => {
