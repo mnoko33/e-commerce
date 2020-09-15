@@ -7,7 +7,7 @@ function lazyLoad(target) {
                 const src = img.getAttribute("data-lazy");
 
                 img.setAttribute("src", src);
-                observer.disconnect();
+                observer.unobserve(entry.target);
             }
         })
     })
