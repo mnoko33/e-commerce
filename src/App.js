@@ -14,7 +14,7 @@ class App {
 
     this.categoryList = new CategoryList({ 
       $app, 
-      updateProductList: async (categoryName) => {
+      updateProducts: async (categoryName) => {
         this
           .showLoading()
           .setState({ products: await api.getProducts(categoryName) })
@@ -25,7 +25,7 @@ class App {
 
     this.productList = new ProductList({
       $app,
-      initialData: this.data,
+      initialData: this.state.data,
       handleProductClick: id => this.showClickedProductInfo({
         id,
         callback: (product) => this.sidebar.addRecentlyViewed(product)
@@ -68,7 +68,7 @@ class App {
   }
 
   updateProducts () {
-    this.productList.updateProducts(this.state.products);
+    this.productList.setState({ products: this.state.products });
     return this;
   }
 
