@@ -1,6 +1,12 @@
 class App {
+  initialState = {
+    products: [],
+    productInfo: null,
+    isLoadingVisible: false,
+  }
   constructor($app) {
     this.$app = $app;
+    this.state = this.initialState
     this.data = [];
     this.loadingVisibility = false;
 
@@ -8,13 +14,12 @@ class App {
 
     this.categoryList = new CategoryList({ 
       $app, 
-      updateProductList: (categoryName) => {
-        this.beforeFetchApi();
-        api.getProducts(categoryName)
-          .then(newData => {
-            this.beforeUpdateData();
-            this.updateData(newData)
-          })
+      updateProductList: async (categoryName) => {
+        this
+          .showLoading()
+          .setState({ products: await api.getProducts(categoryName) })
+          .updateProducts()
+          .hideLoading()
       }
     });
 
@@ -43,26 +48,38 @@ class App {
 
     this.loading = new Loading({
       $app,
-      visible: true,
+      visible: false,
     });
 
-    api.getProducts('전체보기').then(newData => {
-      this.updateData(newData)
-      this.loading.setLoading({ visible: false });
-    });
+    this.init();
   }
 
-  updateData(newData) {
-    this.data = newData;
-    this.productList.updateProducts(newData);
+  async init () {
+    this
+      .showLoading()
+      .setState({ products: await api.getProducts('전체보기') })
+      .updateProducts()
+      .hideLoading()
   }
 
-  beforeFetchApi() {
+  setState(payload) {
+    this.state = { ...this.state, ...payload }
+    return this;
+  }
+
+  updateProducts () {
+    this.productList.updateProducts(this.state.products);
+    return this;
+  }
+
+  showLoading() {
     this.loading.setLoading({ visible: true });
+    return this;
   }
 
-  beforeUpdateData() {
+  hideLoading() {
     this.loading.setLoading({ visible: false });
+    return this;
   }
 
   showClickedProductInfo({ id, callback }) {
@@ -75,15 +92,6 @@ class App {
           product: res, 
           visible: true 
         });
-      })
-  }
-
-  fetchGetProductsApi(categoryName) {
-    this.beforeFetchApi();
-    api.getProducts(categoryName)
-      .then(newData => {
-        this.beforeUpdateData();
-        this.updateData(newData);
       })
   }
 }
