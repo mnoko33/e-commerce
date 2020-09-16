@@ -1,3 +1,6 @@
+import convertWon from '../utils/convertWon.js';
+import lazyLoad from '../utils/lazyload.js';
+
 class ProductList {
   constructor({ $app, initialData, handleProductClick }) {
     this.productList = document.createElement('div');
@@ -5,7 +8,7 @@ class ProductList {
     $app.appendChild(this.productList);
 
     this.state = {
-      data: initialData,
+      products: initialData,
     }
 
     this.handleProductClick = handleProductClick;
@@ -15,7 +18,7 @@ class ProductList {
       if (e.target.className === 'product-img' || e.target.className === 'product-name') {
         e.stopPropagation();
         const clickedId = e.target.parentNode.dataset.id;
-        const product = this.state.data.find(elem => elem.id == clickedId);
+        const product = this.state.products.find(elem => elem.id == clickedId);
         if (product) {
           this.handleProductClick(product.id);
         }
@@ -23,13 +26,13 @@ class ProductList {
     })
   }
 
-  updateProducts(newData) {
-    this.state = { ...this.state, data: newData }
+  setState({ products }) {
+    this.state = { ...this.state, products }
     this.render();
   }
   
   render() {
-    this.productList.innerHTML = this.state.data.map(
+    this.productList.innerHTML = this.state.products.map(
       product => `
         <div class="product" data-id="${product.id}" id="product-${product.id}">
           <img class="product-img" data-lazy="${product.imgUrl}" alt="${product.name}" />
@@ -44,3 +47,5 @@ class ProductList {
     document.querySelectorAll('.product-img').forEach(img => lazyLoad(img));
   }
 }
+
+export default ProductList;

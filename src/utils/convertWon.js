@@ -11,3 +11,5 @@ function convertWon(x) {
     }
     return result;
 }
+
+export default convertWon;

@@ -1,5 +1,5 @@
 class CategoryList {
-  constructor({ $app, updateProductList }) {
+  constructor({ $app, updateProducts }) {
     this.categoryList = document.createElement('div');
     this.categoryList.className = "category-list";
     $app.appendChild(this.categoryList);
@@ -9,7 +9,7 @@ class CategoryList {
       selectedIdx: 0,
     }
 
-    this.updateProductList = updateProductList;
+    this.updateProducts = updateProducts;
 
     this.render();
   }
@@ -41,8 +41,10 @@ class CategoryList {
     document.querySelector('.category-list').addEventListener('click', e => {
       if (e.target !== e.currentTarget) {
         this.changeClickedCategory(e);
-        this.updateProductList(e.target.dataset.name);
+        this.updateProducts(e.target.dataset.name);
       }
     })
   }
 }
+
+export default CategoryList;

@@ -1,3 +1,5 @@
+import recentlyViewedQueue from '../utils/recentlyViewedQueue.js';
+
 class Sidebar {
   MAX_QUEUE_SIZE = 3
   constructor({ $app, handleProductClick, MAX_QUEUE_SIZE }) {
@@ -73,3 +75,5 @@ class Sidebar {
     });
   }
 }
+
+export default Sidebar;

@@ -6,3 +6,5 @@ class Header {
     $app.appendChild(this.header);
   }
 }
+
+export default Header;

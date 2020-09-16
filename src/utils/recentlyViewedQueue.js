@@ -1,5 +1,5 @@
 function recentlyViewedQueue(MAX_SIZE = 3) {
-  this.Q = new Array(MAX_SIZE);
+  this.Q = [];
   return {
     push: v => {
       const idx = this.Q.indexOf(v);
@@ -18,3 +18,5 @@ function recentlyViewedQueue(MAX_SIZE = 3) {
     }
   }
 }
+
+export default recentlyViewedQueue;

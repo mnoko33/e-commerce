@@ -1,54 +1,54 @@
+import convertWon from '../utils/convertWon.js';
+
 class ProductInfo {
-  constructor({ $app, product, visible }) {
+  constructor({ $app, productInfo }) {
     this.bg = document.createElement('div');
-    this.bg.className = this.visible ? 'bg on' : 'bg off';
+    this.bg.className = 'bg';
     $app.appendChild(this.bg);
 
-    this.state = { product, visible };
+    this.state = { productInfo };
     this.keydownEscListener = null;
     
     this.render();
   }
 
   render() {
-    if (this.state.visible) {
-      const { product } = this.state;
-      this.toggleBg();
+    const productInfo = this.state.productInfo;
+    if (productInfo) {
       this.bg.innerHTML = `
         <div class="product-info">
           <div class="product-info-header">
-            <h1>${product.name}</h1>
+            <h1>${productInfo.name}</h1>
           </div>
           <button id="close-btn">x</button>
           <div class="product-info-body">
             <div class="product-info-img">
-              <img src="${product.imgUrl}" alt="${product.name}" />
+              <img src="${productInfo.imgUrl}" alt="${productInfo.name}" />
             </div>
             <div class="product-info-content">
-              <div class="product-info-category">카테고리: ${product.category}</div>
-              <div class="product-info-price">가격: \\${convertWon(product.price)}</div>
-              <div class="product-info-description">${product.description}</div>
+              <div class="product-info-category">카테고리: ${productInfo.category}</div>
+              <div class="product-info-price">가격: \\${convertWon(productInfo.price)}</div>
+              <div class="product-info-description">${productInfo.description}</div>
             </div>
           </div>
         </div>
       `;
       this.addClickEventListener();
       this.addEscKeydownListener();
-
     } else {
-      this.toggleBg();
       this.bg.innerHTML = '';
     }
+    this.toggleBg();
+  }
+
+  setState ({ productInfo }) {
+    this.state = { ...this.state, productInfo }
+    this.render();
   }
 
   toggleBg() {
-    this.bg.classList.add(this.state.visible ? 'on' : 'off');
-    this.bg.classList.remove(this.state.visible ? 'off' : 'on');
-  }
-
-  showProductInfo({ product, visible }) {
-    this.state = { product, visible }
-    this.render();
+    this.bg.classList.add(this.state.productInfo ? 'on' : 'off');
+    this.bg.classList.remove(this.state.productInfo ? 'off' : 'on');
   }
 
   removeEscKeydownListener() {
@@ -57,7 +57,7 @@ class ProductInfo {
   }
 
   closeProductInfo() {
-    this.state.visible = false;
+    this.state.productInfo = null;
     this.removeEscKeydownListener();
     this.render();
   }
@@ -79,3 +79,5 @@ class ProductInfo {
     document.addEventListener('keydown', this.keydownEscListener);
   }
 }
+
+export default ProductInfo;

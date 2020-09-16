@@ -1,41 +1,61 @@
+import Header from './components/Header.js';
+import CategoryList from './components/CategoryList.js';
+import ProductList from './components/ProductList.js';
+import ProductInfo from './components/ProductInfo.js';
+import Sidebar from './components/Sidebar.js';
+import Footer from './components/Footer.js';
+import Loading from './components/Loading.js';
+import api from './api.js';
+
 class App {
+  initialState = {
+    products: [],
+    productInfo: null,
+    isLoadingVisible: false,
+  }
   constructor($app) {
     this.$app = $app;
-    this.data = [];
-    this.loadingVisibility = false;
+    this.state = this.initialState
 
     this.header = new Header($app);
 
     this.categoryList = new CategoryList({ 
       $app, 
-      updateProductList: (categoryName) => {
-        this.beforeFetchApi();
-        api.getProducts(categoryName)
-          .then(newData => {
-            this.beforeUpdateData();
-            this.updateData(newData)
-          })
+      updateProducts: async (categoryName) => {
+        this
+          .showLoading()
+          .updateProducts({ products: await api.getProducts(categoryName) })
+          .hideLoading()
       }
     });
 
     this.productList = new ProductList({
       $app,
-      initialData: this.data,
-      handleProductClick: id => this.showClickedProductInfo({
-        id,
-        callback: (product) => this.sidebar.addRecentlyViewed(product)
-      })
+      initialData: this.state.data,
+      handleProductClick: async id => {
+        this
+          .showLoading()
+          .setState({ productInfo: await api.getProductById(id) })
+          .updateProductInfo()
+          .updateSidebar()
+          .hideLoading()
+      }
     })
 
     this.productInfo = new ProductInfo({ 
       $app, 
-      product: null, 
-      visible: false, 
+      productInfo: this.state.productInfo, 
     });
-        
+
     this.sidebar = new Sidebar({ 
       $app,
-      handleProductClick: id => this.showClickedProductInfo({ id }),
+      handleProductClick: async id => {
+        this
+          .showLoading()
+          .setState({ productInfo: await api.getProductById(id) })
+          .updateProductInfo()
+          .hideLoading()
+      },
       MAX_QUEUE_SIZE: 3,
     });
 
@@ -43,26 +63,47 @@ class App {
 
     this.loading = new Loading({
       $app,
-      visible: true,
+      visible: false,
     });
 
-    api.getProducts('전체보기').then(newData => {
-      this.updateData(newData)
-      this.loading.setLoading({ visible: false });
-    });
+    this.init();
   }
 
-  updateData(newData) {
-    this.data = newData;
-    this.productList.updateProducts(newData);
+  async init () {
+    this
+      .showLoading()
+      .updateProducts({ products: await api.getProducts('전체보기') })
+      .hideLoading()
   }
 
-  beforeFetchApi() {
+  setState(payload) {
+    this.state = { ...this.state, ...payload }
+    return this;
+  }
+
+  updateProducts ({ products }) {
+    this.productList.setState({ products });
+    return this;
+  }
+
+  showLoading() {
     this.loading.setLoading({ visible: true });
+    return this;
+  }
+  
+  hideLoading() {
+    this.loading.setLoading({ visible: false });
+    return this;
   }
 
-  beforeUpdateData() {
-    this.loading.setLoading({ visible: false });
+  updateProductInfo () {
+    this.productInfo.setState({ productInfo: this.state.productInfo })
+    return this;
+  }
+
+  updateSidebar () {
+    this.sidebar.addRecentlyViewed(this.state.productInfo);
+    return this;
   }
 
   showClickedProductInfo({ id, callback }) {
@@ -77,13 +118,6 @@ class App {
         });
       })
   }
-
-  fetchGetProductsApi(categoryName) {
-    this.beforeFetchApi();
-    api.getProducts(categoryName)
-      .then(newData => {
-        this.beforeUpdateData();
-        this.updateData(newData);
-      })
-  }
 }
+
+export default App;
