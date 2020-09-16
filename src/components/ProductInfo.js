@@ -1,3 +1,5 @@
+import convertWon from '../utils/convertWon.js';
+
 class ProductInfo {
   constructor({ $app, productInfo }) {
     this.bg = document.createElement('div');
@@ -77,3 +79,5 @@ class ProductInfo {
     document.addEventListener('keydown', this.keydownEscListener);
   }
 }
+
+export default ProductInfo;

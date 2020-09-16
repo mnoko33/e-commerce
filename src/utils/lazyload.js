@@ -14,3 +14,5 @@ function lazyLoad(target) {
 
     io.observe(target);
 }
+
+export default lazyLoad;

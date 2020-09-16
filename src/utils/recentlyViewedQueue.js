@@ -18,3 +18,5 @@ function recentlyViewedQueue(MAX_SIZE = 3) {
     }
   }
 }
+
+export default recentlyViewedQueue;

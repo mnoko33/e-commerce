@@ -1,3 +1,6 @@
+import getRandomDelayTime from './utils/randomNumber.js';
+import db from './firebase/firebase.js';
+
 const dummyMode = false;
 
 function delay () {
@@ -59,6 +62,9 @@ const api = {
       })
   }
 }
+
+export default api;
+
 
 var dummyData = [
     {

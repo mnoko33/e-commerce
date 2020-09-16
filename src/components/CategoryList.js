@@ -46,3 +46,5 @@ class CategoryList {
     })
   }
 }
+
+export default CategoryList;

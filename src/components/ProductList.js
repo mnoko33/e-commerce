@@ -1,3 +1,6 @@
+import convertWon from '../utils/convertWon.js';
+import lazyLoad from '../utils/lazyload.js';
+
 class ProductList {
   constructor({ $app, initialData, handleProductClick }) {
     this.productList = document.createElement('div');
@@ -44,3 +47,5 @@ class ProductList {
     document.querySelectorAll('.product-img').forEach(img => lazyLoad(img));
   }
 }
+
+export default ProductList;

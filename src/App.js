@@ -1,3 +1,12 @@
+import Header from './components/Header.js';
+import CategoryList from './components/CategoryList.js';
+import ProductList from './components/ProductList.js';
+import ProductInfo from './components/ProductInfo.js';
+import Sidebar from './components/Sidebar.js';
+import Footer from './components/Footer.js';
+import Loading from './components/Loading.js';
+import api from './api.js';
+
 class App {
   initialState = {
     products: [],
@@ -110,3 +119,5 @@ class App {
       })
   }
 }
+
+export default App;
