@@ -7,8 +7,6 @@ class App {
   constructor($app) {
     this.$app = $app;
     this.state = this.initialState
-    this.data = [];
-    this.loadingVisibility = false;
 
     this.header = new Header($app);
 
@@ -17,8 +15,7 @@ class App {
       updateProducts: async (categoryName) => {
         this
           .showLoading()
-          .setState({ products: await api.getProducts(categoryName) })
-          .updateProducts()
+          .updateProducts({ products: await api.getProducts(categoryName) })
           .hideLoading()
       }
     });
@@ -26,21 +23,30 @@ class App {
     this.productList = new ProductList({
       $app,
       initialData: this.state.data,
-      handleProductClick: id => this.showClickedProductInfo({
-        id,
-        callback: (product) => this.sidebar.addRecentlyViewed(product)
-      })
+      handleProductClick: async id => {
+        this
+          .showLoading()
+          .setState({ productInfo: await api.getProductById(id) })
+          .updateProductInfo()
+          .updateSidebar()
+          .hideLoading()
+      }
     })
 
     this.productInfo = new ProductInfo({ 
       $app, 
-      product: null, 
-      visible: false, 
+      productInfo: this.state.productInfo, 
     });
-        
+
     this.sidebar = new Sidebar({ 
       $app,
-      handleProductClick: id => this.showClickedProductInfo({ id }),
+      handleProductClick: async id => {
+        this
+          .showLoading()
+          .setState({ productInfo: await api.getProductById(id) })
+          .updateProductInfo()
+          .hideLoading()
+      },
       MAX_QUEUE_SIZE: 3,
     });
 
@@ -57,8 +63,7 @@ class App {
   async init () {
     this
       .showLoading()
-      .setState({ products: await api.getProducts('전체보기') })
-      .updateProducts()
+      .updateProducts({ products: await api.getProducts('전체보기') })
       .hideLoading()
   }
 
@@ -67,8 +72,8 @@ class App {
     return this;
   }
 
-  updateProducts () {
-    this.productList.setState({ products: this.state.products });
+  updateProducts ({ products }) {
+    this.productList.setState({ products });
     return this;
   }
 
@@ -76,9 +81,19 @@ class App {
     this.loading.setLoading({ visible: true });
     return this;
   }
-
+  
   hideLoading() {
     this.loading.setLoading({ visible: false });
+    return this;
+  }
+
+  updateProductInfo () {
+    this.productInfo.setState({ productInfo: this.state.productInfo })
+    return this;
+  }
+
+  updateSidebar () {
+    this.sidebar.addRecentlyViewed(this.state.productInfo);
     return this;
   }
 
